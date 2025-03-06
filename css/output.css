@@ -1,1 +1,75 @@
+ /* Peta full-screen */
+ #map {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
 
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: white;
+  z-index: 2;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+}
+
+.title {
+  margin-left: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -280px;
+  width: 280px;
+  height: 100vh;
+  background: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  transition: right 0.3s ease-in-out;
+  z-index: 3;
+}
+
+.sidebar.active {
+  right: 0;
+}
+
+.divider {
+  height: 2px;
+  background: #ccc;
+  margin: 15px 0;
+}
+
+.toggle-btn {
+  margin-left: auto;
+  padding: 8px 15px;
+}
+
+.close-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
