@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Bone Bolango</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <!-- Leaflet CSS dan JS Lokal -->
+    <link rel="stylesheet" href="leaflet/leaflet.css"/>
+    <script src="leaflet/leaflet.js"></script>
+
+</head>
+<body>
+    <!-- Peta -->
+    <div id="map"></div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo"></div>
+        <div class="title">Bone Bolango</div>
+        <button class="btn btn-primary toggle-btn" onclick="toggleSidebar()">☰</button>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <button class="close-btn btn btn-danger" onclick="toggleSidebar()">✖</button>
+        <h4 class="mt-3">Layer</h4>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="mapLayer" name="mapType" checked onchange="changeMap('maps')">
+            <label class="form-check-label" for="mapLayer">Maps</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="satelliteLayer" name="mapType" onchange="changeMap('satellite')">
+            <label class="form-check-label" for="satelliteLayer">Satelit</label>
+        </div>
+
+        <div class="divider"></div>
+
+        <h4>Bencana</h4>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="banjir" name="disasterType">
+            <label class="form-check-label" for="banjir">Banjir</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="longsor" name="disasterType">
+            <label class="form-check-label" for="longsor">Longsor</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="kebakaran" name="disasterType">
+            <label class="form-check-label" for="kebakaran">Kebakaran</label>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Fungsi Toggle Sidebar
+        function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("active");
+        }
+
+        // Inisialisasi Peta
+        var map = L.map('map', {
+            center: [0.5694, 123.2707], // Koordinat Bone Bolango
+            zoom: 12,
+            zoomControl: false,
+            dragging: true,
+        });
+
+        // Layer Peta Default (Maps)
+        var mapLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var satelliteLayer = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
+            attribution: 'Google Satellite'
+        });
+
+        // Tambahkan Titik Marker di Bone Bolango
+        var marker = L.marker([0.5694, 123.2707]).addTo(map)
+            .bindPopup("<b>Bone Bolango</b><br>Lokasi utama peta.").openPopup();
+
+        // Fungsi untuk Mengganti Layer Peta
+        function changeMap(mode) {
+            if (mode === 'maps') {
+                map.removeLayer(satelliteLayer);
+                map.addLayer(mapLayer);
+            } else if (mode === 'satellite') {
+                map.removeLayer(mapLayer);
+                map.addLayer(satelliteLayer);
+            }
+        }
+    </script>
+</body>
+</html>
